@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://conjt1dhwl67j"]
+
+[ext_resource type="Script" path="res://activeTurnQueue.gd" id="1_slmb1"]
+[ext_resource type="Script" path="res://battler.gd" id="2_adcml"]
+
+[node name="Combat" type="Node2D"]
+
+[node name="ActiveTurnQueue" type="Node2D" parent="."]
+script = ExtResource("1_slmb1")
+
+[node name="Bear" type="Node2D" parent="ActiveTurnQueue"]
+script = ExtResource("2_adcml")
+
+[node name="BugCat" type="Node2D" parent="ActiveTurnQueue"]
+script = ExtResource("2_adcml")
