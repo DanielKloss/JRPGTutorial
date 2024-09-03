@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BattlerStats" load_steps=2 format=3 uid="uid://clx3ck60sceoo"]
+
+[ext_resource type="Script" path="res://battlerStats.gd" id="1_0y14m"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_0y14m")
+maxHealth = 80.0
+maxEnergy = 6
+baseAttack = 100
+baseDefense = 3.0
+baseSpeed = 55.0
+baseHitChance = 100.0
+baseEvasion = 10.0
+affinity = 0
+weaknessness = []

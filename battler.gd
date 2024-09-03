@@ -3,6 +3,9 @@ class_name Battler extends Node2D
 signal readyToAct
 signal readinessChanged(value)
 signal selectionToggled(value)
+signal damageTaken(amount)
+signal hitMissed
+signal actionFinished
 
 @export var stats: Resource
 @export var aiScene: PackedScene
@@ -18,7 +21,7 @@ var isSelectable := true : set = setIsSelectable
 func _ready() -> void:
 	stats = stats.duplicate()
 	stats.reinitialise()
-	stats.healthDepleated.connect("onBattlerStatsHealthDepleated")
+	stats.healthDepleated.connect(onBattlerStatsHealthDepleated)
 
 func _process(delta: float) -> void:
 	setReadiness(readiness + stats.speed * delta * timeScale)
@@ -51,7 +54,26 @@ func setIsSelectable(value: bool) -> void:
 		
 func isPlayerControlled() -> bool:
 	return aiScene == null
-	
+
+func act(action: Action) -> void:
+	stats.energy -= action.data.energyCost
+	await action.applyAsync()
+	setReadiness(action.data.readinessSaved)
+	if isActive:
+		set_process(true)
+	emit_signal("actionFinished")
+
+func takeHit(hit: Hit) -> void:
+	if hit.doesHit():
+		takeDamage(hit.hitDamage)
+		emit_signal("damageTaken")
+	else:
+		emit_signal("hitMissed")
+		
+func takeDamage(amount: int) -> void:
+	stats.health -= amount
+	print("%s took %s damage. Health is now %s." % [name, amount, stats.health])
+
 func onBattlerStatsHealthDepleated() -> void:
 	setIsActive(false)
 	if not isPartyMember:

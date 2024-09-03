@@ -9,7 +9,7 @@ var timeScale := 1.0 : set = setTimeScale
 
 func _ready() -> void:
 	for battler in battlers:
-		battler.readyToAct.connect(onBattlerReadyToAct, [battler])
+		battler.readyToAct.connect(onBattlerReadyToAct.bind(battler))
 		if battler.isPartyMember:
 			partyMembers.append(battler)
 		else:
@@ -37,7 +37,7 @@ func playTurn(battler: Battler) -> void:
 		var isSelectionComplete := false
 		while not isSelectionComplete:
 			actionData = await playerSelectActionAsync(battler)
-			if actionData.isTragettingSelf:
+			if actionData.isTargettingSelf:
 				targets = [battler]
 			else:
 				targets = await playerSelectTargetsAsync(actionData, potentialTargets)
@@ -47,6 +47,10 @@ func playTurn(battler: Battler) -> void:
 	else:
 		actionData = battler.action[0]
 		targets = [potentialTargets[0]]
+		
+	var action = AttackAction.new(actionData, battler, targets)
+	battler.act(action)
+	await battler.actionFinished
 		
 func playerSelectActionAsync(battler: Battler) -> ActionData:
 	await get_tree().process_frame

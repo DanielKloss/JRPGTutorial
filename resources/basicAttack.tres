@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AttackActionData" load_steps=2 format=3 uid="uid://cvijdesdvtqy5"]
+
+[ext_resource type="Script" path="res://actions/attackAction/attackActionData.gd" id="1_d08if"]
+
+[resource]
+script = ExtResource("1_d08if")
+damageMultiplier = 0.8
+hitChance = 100.0
+label = "Basic Attack"
+energyCost = 0
+element = 0
+isTargettingSelf = false
+isTargettingAll = false
+readinessSaved = 20.0

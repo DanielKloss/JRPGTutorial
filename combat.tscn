@@ -1,15 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://conjt1dhwl67j"]
+[gd_scene load_steps=6 format=3 uid="uid://conjt1dhwl67j"]
 
 [ext_resource type="Script" path="res://activeTurnQueue.gd" id="1_slmb1"]
 [ext_resource type="Script" path="res://battler.gd" id="2_adcml"]
+[ext_resource type="Resource" uid="uid://clx3ck60sceoo" path="res://resources/playerBattlerStats.tres" id="3_pfy8x"]
+[ext_resource type="Resource" uid="uid://cvijdesdvtqy5" path="res://resources/basicAttack.tres" id="4_k154v"]
+[ext_resource type="Resource" uid="uid://bt7ytlkiykrq5" path="res://resources/enemyBattlerStats.tres" id="5_hcyyr"]
 
 [node name="Combat" type="Node2D"]
 
 [node name="ActiveTurnQueue" type="Node2D" parent="."]
 script = ExtResource("1_slmb1")
 
-[node name="Bear" type="Node2D" parent="ActiveTurnQueue"]
+[node name="PlayerBattler" type="Node2D" parent="ActiveTurnQueue"]
 script = ExtResource("2_adcml")
+stats = ExtResource("3_pfy8x")
+actions = [ExtResource("4_k154v")]
+isPartyMember = true
 
-[node name="BugCat" type="Node2D" parent="ActiveTurnQueue"]
+[node name="EnemyBattler" type="Node2D" parent="ActiveTurnQueue"]
 script = ExtResource("2_adcml")
+stats = ExtResource("5_hcyyr")
+actions = [ExtResource("4_k154v")]
